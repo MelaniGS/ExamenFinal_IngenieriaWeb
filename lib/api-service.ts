@@ -1,6 +1,6 @@
 import type { Libro, LibroInput } from "./types"
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || ""
+const BASE_URL = "https://examenfinal-ingenieriaweb.onrender.com"
 
 const API_HEADERS = {
     "Content-Type": "application/json",
