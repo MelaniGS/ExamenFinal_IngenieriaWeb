@@ -1,11 +1,13 @@
 import * as dotenv from "dotenv";
 dotenv.config({ path: ".env.local" });
 
-import { db } from "../lib/db";
-import { libros } from "../lib/db/schema";
-import { sql } from "drizzle-orm";
-
 async function main() {
+    console.log("Seeding database...");
+
+    // Dynamically import db and schema after dotenv.config()
+    const { db } = await import("../lib/db/index.ts");
+    const { libros } = await import("../lib/db/schema.ts");
+    const { sql } = await import("drizzle-orm");
     console.log("Seeding database...");
 
     const exampleLibros = [

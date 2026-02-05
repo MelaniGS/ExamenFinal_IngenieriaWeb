@@ -1,6 +1,12 @@
+import * as dotenv from "dotenv";
+dotenv.config({ path: ".env.local" });
 import { neon } from "@neondatabase/serverless";
 
-const sql = neon(process.env.DATABASE_URL!);
+if (!process.env.DATABASE_URL) {
+  throw new Error("DATABASE_URL must be provided in .env.local");
+}
+
+const sql = neon(process.env.DATABASE_URL);
 
 async function migrate() {
   // Crear tabla libros
