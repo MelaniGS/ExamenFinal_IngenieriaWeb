@@ -10,7 +10,10 @@ const API_HEADERS = {
 export const fetcher = (url: string) => {
     const targetUrl = `${BASE_URL}${url}`;
     console.log(`[API] Fetching: ${targetUrl}`);
-    return fetch(targetUrl, { headers: { "x-api-key": "examen-seguro-2026" } })
+    return fetch(targetUrl, {
+        mode: "cors",
+        headers: { "x-api-key": "examen-seguro-2026", "Cache-Control": "no-cache" }
+    })
         .then((res) => {
             if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`)
             return res.json()
@@ -20,7 +23,11 @@ export const fetcher = (url: string) => {
 export async function createLibro(data: LibroInput) {
     const res = await fetch(`${BASE_URL}/api/libros`, {
         method: "POST",
-        headers: API_HEADERS,
+        mode: "cors",
+        headers: {
+            ...API_HEADERS,
+            "Cache-Control": "no-cache"
+        },
         body: JSON.stringify(data),
     })
     return res.json()
@@ -29,7 +36,11 @@ export async function createLibro(data: LibroInput) {
 export async function updateLibro(id: number, data: LibroInput) {
     const res = await fetch(`${BASE_URL}/api/libros/${id}`, {
         method: "PUT",
-        headers: API_HEADERS,
+        mode: "cors",
+        headers: {
+            ...API_HEADERS,
+            "Cache-Control": "no-cache"
+        },
         body: JSON.stringify(data),
     })
     return res.json()
@@ -38,14 +49,16 @@ export async function updateLibro(id: number, data: LibroInput) {
 export async function deleteLibro(id: number) {
     const res = await fetch(`${BASE_URL}/api/libros/${id}`, {
         method: "DELETE",
-        headers: { "x-api-key": "examen-seguro-2026" },
+        mode: "cors",
+        headers: { "x-api-key": "examen-seguro-2026", "Cache-Control": "no-cache" },
     })
     return res.json()
 }
 
 export async function getLibroById(id: string) {
     const res = await fetch(`${BASE_URL}/api/libros/${id}`, {
-        headers: { "x-api-key": "examen-seguro-2026" },
+        mode: "cors",
+        headers: { "x-api-key": "examen-seguro-2026", "Cache-Control": "no-cache" },
     })
     return res.json()
 }
