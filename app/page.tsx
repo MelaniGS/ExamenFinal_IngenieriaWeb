@@ -83,7 +83,11 @@ export default function Page() {
         setFormOpen(false)
         setSelectedLibro(null)
         refreshAll()
+      } else {
+        alert("Error al crear libro: " + (result.error || result.message || "Error desconocido"))
       }
+    } catch (error: any) {
+      alert("Error de red o servidor: " + error.message)
     } finally {
       setSaving(false)
     }
@@ -98,7 +102,11 @@ export default function Page() {
         setFormOpen(false)
         setSelectedLibro(null)
         refreshAll()
+      } else {
+        alert("Error al actualizar: " + (result.error || result.message))
       }
+    } catch (error: any) {
+      alert("Error de red: " + error.message)
     } finally {
       setSaving(false)
     }
@@ -112,9 +120,11 @@ export default function Page() {
         setDeleteOpen(false)
         setDeleteTarget(null)
         refreshAll()
+      } else {
+        alert("Error al eliminar: " + (result.error || result.message))
       }
-    } catch {
-      // Error handling silenciado
+    } catch (error: any) {
+      alert("Error de red: " + error.message)
     }
   }
 
