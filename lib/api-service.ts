@@ -1,6 +1,6 @@
 import type { Libro, LibroInput } from "./types"
 
-const BASE_URL = "https://examenfinal-ingenieriaweb.onrender.com"
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || ""
 
 const API_HEADERS = {
     "Content-Type": "application/json",
@@ -8,12 +8,7 @@ const API_HEADERS = {
 }
 
 export const fetcher = (url: string) => {
-    const targetUrl = `${BASE_URL}${url}`;
-    console.log(`[API] Fetching: ${targetUrl}`);
-    return fetch(targetUrl, {
-        mode: "cors",
-        headers: { "x-api-key": "examen-seguro-2026", "Cache-Control": "no-cache" }
-    })
+    return fetch(`${BASE_URL}${url}`, { headers: { "x-api-key": "examen-seguro-2026" } })
         .then((res) => {
             if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`)
             return res.json()
@@ -23,11 +18,7 @@ export const fetcher = (url: string) => {
 export async function createLibro(data: LibroInput) {
     const res = await fetch(`${BASE_URL}/api/libros`, {
         method: "POST",
-        mode: "cors",
-        headers: {
-            ...API_HEADERS,
-            "Cache-Control": "no-cache"
-        },
+        headers: API_HEADERS,
         body: JSON.stringify(data),
     })
     return res.json()
@@ -36,11 +27,7 @@ export async function createLibro(data: LibroInput) {
 export async function updateLibro(id: number, data: LibroInput) {
     const res = await fetch(`${BASE_URL}/api/libros/${id}`, {
         method: "PUT",
-        mode: "cors",
-        headers: {
-            ...API_HEADERS,
-            "Cache-Control": "no-cache"
-        },
+        headers: API_HEADERS,
         body: JSON.stringify(data),
     })
     return res.json()
@@ -49,16 +36,14 @@ export async function updateLibro(id: number, data: LibroInput) {
 export async function deleteLibro(id: number) {
     const res = await fetch(`${BASE_URL}/api/libros/${id}`, {
         method: "DELETE",
-        mode: "cors",
-        headers: { "x-api-key": "examen-seguro-2026", "Cache-Control": "no-cache" },
+        headers: { "x-api-key": "examen-seguro-2026" },
     })
     return res.json()
 }
 
 export async function getLibroById(id: string) {
     const res = await fetch(`${BASE_URL}/api/libros/${id}`, {
-        mode: "cors",
-        headers: { "x-api-key": "examen-seguro-2026", "Cache-Control": "no-cache" },
+        headers: { "x-api-key": "examen-seguro-2026" },
     })
     return res.json()
 }
